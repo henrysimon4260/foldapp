@@ -253,9 +253,9 @@ form .btn .btn-layer {
   transition: all 0.4s ease;
 }
 
-form .btn:hover .btn-layer {
+form .btn:hover  {
   left: 0;
-
+  background-color: darkblue;
 }
 
 form .btn input[type="submit"] {
