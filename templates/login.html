@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../static/styles.css">
     <style>
         .wrapper {
             background-color: white;
             width: 300px;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid lightgrey;
             margin: auto;
             margin-top: 50px;
         }
@@ -29,8 +29,10 @@
         .slide {
             cursor: pointer;
             display: inline-block;
-            padding: 10px 20px;
+            padding: 1px 1px;
             border: 1px solid #ccc;
+            text-align: center;
+            line-height: 30px;
         }
         .form-inner form {
             display: none;
@@ -63,7 +65,7 @@
 <body>
     <div class="wrapper">
         <div class="title-text">
-            <img src="/static/fold.jpg" alt="fold_logo" style="width: 260px; height: auto;" />
+            <img src="../static/fold.jpg" alt="fold_logo" style="width: 260px; height: auto;" />
         </div>
         <div class="form-container">
             <div class="slide-controls">
@@ -89,7 +91,7 @@
                     
                 </form>
                 <!-- Signup Form -->
-                <form action="/customerRegistrationAuth" method="POST" class="signup" id="signupForm">
+                <form action="/customerRegisterAuth" method="POST" class="signup" id="signupForm">
                     <div class="field">
                         <input type="text" placeholder="Email Address" required name="email_address">
                     </div>
@@ -130,22 +132,26 @@
             </div>
         </div>
     </div>
-    <script>
-        function updateAction(isStaff) {
-            const signupForm = document.getElementById('signupForm');
-            signupForm.action = isStaff ? '/staffRegistrationAuth' : '/customerRegistrationAuth';
-        }
-      
-        function toggleForm(formType) {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            loginForm.style.display = (formType === 'login') ? 'block' : 'none';
-            signupForm.style.display = (formType === 'login') ? 'none' : 'block';
-            updateFormActions();
-        }
 
-        
-        
-    </script>
 </body>
+<script>
+function updateAction(isStaff) {
+    const signupForm = document.getElementById('signupForm');
+    signupForm.action = isStaff ? '/staffRegisterAuth' : '/customerRegisterAuth';
+    window.location.href = "index.html";
+}
+
+function toggleForm(formType) {
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    loginForm.style.display = (formType === 'login') ? 'block' : 'none';
+    signupForm.style.display = (formType === 'login') ? 'none' : 'block';
+    updateFormActions();
+}
+
+
+
+
+</script>
+
 </html>

@@ -35,6 +35,10 @@ def form_example():
     # Any actual logic that you want to implement
 
     return render_template('form_example.html', data=data)
+@app.route('/loginAuth', methods=['GET', 'POST'])
+def loginAuth():
+	#grabs information from the forms
+    pass
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -44,7 +48,7 @@ def login():
 
 #Authenticates the register
 @app.route('/customerRegisterAuth', methods=['GET', 'POST'])
-def registerAuth():
+def customerRegisterAuth():
 	#grabs information from the forms
 	username = request.form['email address']
 	password = request.form['password']
@@ -70,7 +74,7 @@ def registerAuth():
 		return render_template('index.html')#Authenticates the register
      
 @app.route('/staffRegisterAuth', methods=['GET', 'POST'])
-def registerAuth():
+def staffregisterAuth():
 	#grabs information from the forms
 	username = request.form['email address']
 	password = request.form['password']
@@ -130,9 +134,26 @@ def protected2():
 @app.route('/logout')
 def logout():
     session['logged_in'] = False
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
+@app.route('/check_user_role')
+def check_user_role():
+    # please complete this function
+    #query the database to check if the user is a staff
+    # if the user is a staff, take them to the staff profile page. otherwise, take them to the customer profile page
+    # if is_user_staff(user_id): 
+    #     return redirect('/staff_profile.html')
+    # else:
+    #     return redirect('/customer_profile.html')
+    pass 
+
+
+@app.route('/confirmService', methods=['POST'])
+def confirmService():
+    #  please complete this function
+    # query the database and input to confirm the service
+    pass
 
 @app.route('/')
 def index():

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Information</title>
     <style>
-        body {
+          body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2; /* Light grey background */
             color: #333; /* Dark grey text */
@@ -46,34 +46,57 @@
             width: 100%;
             margin-top: 10px;
         }
+        .top-left-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 15px;
+            margin-left: 10px;
+            background-color: linear-gradient(to right, #003366, #004080, #0059b3, #0073e6);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
         button:hover {
             background-color: #0056b3; /* Darker blue on hover */
         }
     </style>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <!-- Logo -->
+        <img src="../static/fold.jpg" alt="Loading..." style="max-width: 200px; height: auto; margin-bottom: 20px;">
+        
+    <div class="top-left-buttons">
+        <button class="button" id="firstname-button" onclick="location.href='/check_user_role';">Orders</button>
+        <button class="button" id="logout-button" onclick="location.href='/logout';">Logout</button>
+    </div>
+    
 </head>
 <body>
     <div class="container">
         <h1>Payment Information</h1>
-        <!-- Payment form fields -->
-        <label for="cardNumber">Card Number:</label>
-        <input type="text" id="cardNumber" name="cardNumber" required>
-
-        <label for="cardName">Cardholder Name:</label>
-        <input type="text" id="cardName" name="cardName" required>
-
-        <label for="cvc">CVC:</label>
-        <input type="text" id="cvc" name="cvc" required>
-
-        <label for="expirationMonth">Expiration Month:</label>
-        <input type="number" id="expirationMonth" name="expirationMonth" min="1" max="12" required>
-
-        <label for="expirationYear">Expiration Year:</label>
-        <input type="number" id="expirationYear" name="expirationYear" min="2022" max="2050" required>
-
-        <!-- Price calculation -->
-        <p>Total Price: $<span id="totalPrice">0</span></p>
-
-        <button onclick="confirmService()">Confirm Service</button>
+        <!-- Wrap the inputs in a form that posts to the Flask route -->
+        <form action="/confirmService" method="post" id="paymentForm">
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" name="cardNumber" required>
+    
+            <label for="cardName">Cardholder Name:</label>
+            <input type="text" id="cardName" name="cardName" required>
+    
+            <label for="cvc">CVC:</label>
+            <input type="text" id="cvc" name="cvc" required>
+    
+            <label for="expirationMonth">Expiration Month:</label>
+            <input type="number" id="expirationMonth" name="expirationMonth" min="1" max="12" required>
+    
+            <label for="expirationYear">Expiration Year:</label>
+            <input type="number" id="expirationYear" name="expirationYear" min="2022" max="2050" required>
+    
+            <!-- Price calculation -->
+            <p>Total Price: $<span id="totalPrice">0</span></p>
+    
+            <button type="submit" onclick="return confirmService();">Confirm Service</button>
+        </form>
     </div>
 
     <script>
@@ -121,5 +144,7 @@
             return totalPrice;
         }
     </script>
+  
+
 </body>
 </html>
