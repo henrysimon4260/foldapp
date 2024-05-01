@@ -5,12 +5,12 @@ app = Flask(__name__)
 app.secret_key = 'whatever_you_want'
 
 # Connect to the database
-connection = pymysql.connect(host='localhost',
-                             user='root',
-                             password='',
-                             database='laundryapp',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+# connection = pymysql.connect(host='localhost',
+#                              user='root',
+#                              password='',
+#                              database='laundryapp',
+#                              charset='utf8mb4',
+#                              cursorclass=pymysql.cursors.DictCursor)
 
 # Handles GET form submission
 @app.route('/query-example', methods=['GET'])
@@ -41,6 +41,59 @@ def login():
     # Verify username and password here
     session['logged_in'] = True
     return redirect(url_for('protected'))
+
+#Authenticates the register
+@app.route('/customerRegisterAuth', methods=['GET', 'POST'])
+def registerAuth():
+	#grabs information from the forms
+	username = request.form['email address']
+	password = request.form['password']
+
+	#cursor used to send queries
+	cursor = conn.cursor()
+	#executes query
+	query = 'SELECT * FROM user WHERE username = %s'
+	cursor.execute(query, (username))
+	#stores the results in a variable
+	data = cursor.fetchone()
+	#use fetchall() if you are expecting more than 1 data row
+	error = None
+	if(data):
+		#If the previous query returns data, then user exists
+		error = "This user already exists"
+		return render_template('register.html', error = error)
+	else:
+		ins = 'INSERT INTO user VALUES(%s, %s)'
+		cursor.execute(ins, (username, password))
+		conn.commit()
+		cursor.close()
+		return render_template('index.html')#Authenticates the register
+     
+@app.route('/staffRegisterAuth', methods=['GET', 'POST'])
+def registerAuth():
+	#grabs information from the forms
+	username = request.form['email address']
+	password = request.form['password']
+
+	#cursor used to send queries
+	cursor = conn.cursor()
+	#executes query
+	query = 'SELECT * FROM user WHERE username = %s'
+	cursor.execute(query, (username))
+	#stores the results in a variable
+	data = cursor.fetchone()
+	#use fetchall() if you are expecting more than 1 data row
+	error = None
+	if(data):
+		#If the previous query returns data, then user exists
+		error = "This user already exists"
+		return render_template('register.html', error = error)
+	else:
+		ins = 'INSERT INTO user VALUES(%s, %s)'
+		cursor.execute(ins, (username, password))
+		conn.commit()
+		cursor.close()
+		return render_template('index.html')
 
 # Basic protected route example
 @app.route('/protected', methods=['GET'])
@@ -79,9 +132,11 @@ def logout():
     session['logged_in'] = False
     return redirect(url_for('index'))
 
+
+
 @app.route('/')
 def index():
-    return render_template('api_demo.html')
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
