@@ -1,2 +1,2 @@
-# foldapp
-App for Fold Laundry 
+# The Fold Laundry App
+App for Fold Laundry Inc. 
