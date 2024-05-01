@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOLD - Laundry Service App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="loading-screen" style="display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 99;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <!-- Logo -->
+            <img src="fold.jpg" alt="Loading..." style="max-width: 500px; height: auto; margin-bottom: 20px;">
+            <!-- Spinner -->
+            <div class="loader" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; border-radius: 50%; width: 75px; height: 75px; animation: spin 2s linear infinite;"></div>
+        </div>
+    </div>
+        
+    <div id="logo-container" style="display: flex; justify-content: center; align-items: center; height: auto;">
+        <img src="fold.jpg" alt="FOLD Logo" style="max-width: 100px; height: auto;">
+    </div>       
+    <div id="search-container">
+        <input type="text" id="service-search" placeholder="Schedule a service">
+        <div id="autocomplete-results"></div>
+    </div>
+    <div id="map-container"></div>
+
+    <div id="laundry-options-popup" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #f2f5f8; padding: 20px; border-top: 1px solid #ccc;">
+        <h2 style="font-family: Arial, sans-serif; font-weight: bold; color: #333;">Laundry Options</h2>
+        <label for="laundry-weight" style="font-family: Arial, sans-serif; font-weight: bold; color: #333;">Laundry Weight (lbs):</label>
+        <input type="number" id="laundry-weight" min="1" max="100" style="margin-bottom: 10px; padding: 8px; width: 100%; border: 1px solid #ccc; border-radius: 5px;">
+        <label for="detergent-type" style="font-family: Arial, sans-serif; font-weight: bold; color: #333;">Detergent Type:</label>
+        <select id="detergent-type" style="margin-bottom: 10px; padding: 8px; width: 100%; border: 1px solid #ccc; border-radius: 5px;">
+            <option value="regular">Regular</option>
+            <option value="eco-friendly">Eco-Friendly</option>
+            <option value="fragrance-free">Fragrance-Free</option>
+        </select>
+        <label for="express-service" style="font-family: Arial, sans-serif; font-weight: bold; color: #333;">Express Service:</label>
+        <input type="checkbox" id="express-service" style="margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between;">
+            <button onclick="confirmLaundryOptions()" style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Confirm</button>
+            <button onclick="cancelLaundryOptions()" style="padding: 10px 20px; background: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;">Cancel</button>
+        </div>
+    </div>
+     
+
+    <script src="script.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC5tqvAkOCrHsdNo2YAjBpS3EtQ6fdMlU&callback=initMap&libraries=places"></script>
+
+</body>
+</html>

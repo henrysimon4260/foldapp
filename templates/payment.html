@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2; /* Light grey background */
+            color: #333; /* Dark grey text */
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff; /* White background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+        h1 {
+            font-weight: bold;
+            text-align: center;
+            color: #007bff; /* Blue header */
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc; /* Light grey border */
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff; /* Blue button */
+            color: #fff; /* White text */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Information</h1>
+        <!-- Payment form fields -->
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" name="cardNumber" required>
+
+        <label for="cardName">Cardholder Name:</label>
+        <input type="text" id="cardName" name="cardName" required>
+
+        <label for="cvc">CVC:</label>
+        <input type="text" id="cvc" name="cvc" required>
+
+        <label for="expirationMonth">Expiration Month:</label>
+        <input type="number" id="expirationMonth" name="expirationMonth" min="1" max="12" required>
+
+        <label for="expirationYear">Expiration Year:</label>
+        <input type="number" id="expirationYear" name="expirationYear" min="2022" max="2050" required>
+
+        <!-- Price calculation -->
+        <p>Total Price: $<span id="totalPrice">0</span></p>
+
+        <button onclick="confirmService()">Confirm Service</button>
+    </div>
+
+    <script>
+        function confirmService() {
+            // Calculate total price
+            var totalPrice = calculateTotalPrice();
+            document.getElementById("totalPrice").textContent = totalPrice.toFixed(2);
+            
+            // Perform any necessary actions to confirm the service
+            // Redirect back to the main page
+            window.location.href = "index.html";
+        }
+
+        function calculateTotalPrice() {
+            // Retrieve laundry options from previous page
+            // For demonstration purposes, assuming default values
+            var poundsOfLaundry = 5; // Example value
+            var ecoAndFragranceFree = true; // Example value
+            var delivery = true; // Example value
+            var expressDelivery = false; // Example value
+            
+            // Calculate base price ($5 per pound of laundry)
+            var basePrice = poundsOfLaundry * 5;
+
+            // Add $5 for eco and fragrance-free option
+            if (ecoAndFragranceFree) {
+                basePrice += 5;
+            }
+
+            // Add $5 for delivery
+            if (delivery) {
+                basePrice += 5;
+            }
+
+            // Add $10 for express delivery
+            if (expressDelivery) {
+                basePrice += 10;
+            }
+
+            // Add tax (assuming 10% tax rate)
+            var tax = basePrice * 0.1;
+
+            // Calculate total price
+            var totalPrice = basePrice + tax;
+            return totalPrice;
+        }
+    </script>
+</body>
+</html>
