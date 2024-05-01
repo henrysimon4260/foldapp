@@ -3,143 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="../styles/login.css">
+    <title>Login</title>
     <style>
-        .wrapper {
-            background-color: white;
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
             width: 300px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            margin: auto;
-            margin-top: 50px;
-        }
-        .title {
+            margin: 0 auto;
+            margin-top: 100px;
             text-align: center;
-            margin-bottom: 20px;
         }
-        .form-container {
-            position: relative;
-            overflow: hidden;
-        }
-        .slide-controls {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .slide {
-            cursor: pointer;
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid #ccc;
-        }
-        .form-inner form {
-            display: none;
-        }
-        .form-inner form.active {
-            display: block;
-        }
-        .field {
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
             margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        .field input[type="text"],
-        .field input[type="password"],
-        .field input[type="email"],
-        .field input[type="submit"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid blue;
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        .btn-layer {
-            background: blue;
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            left: 0;
-            top: 0;
-            z-index: -1;
+        input[type="submit"]:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="title-text">
-            <img src="/static/fold.jpg" alt="fold_logo" style="width: 260px; height: auto;" />
-        </div>
-        <div class="btn toggle-btn" onclick="toggleRole()">Customer</div>
-        <div class="form-container">
-            <div class="slide-controls">
-                <input type="radio" name="slide" id="login" checked onchange="toggleForm('login')" />
-                <input type="radio" name="slide" id="signup" onchange="toggleForm('signup')" />
-                <label for="login" class="slide login">Login</label>
-                <label for="signup" class="slide signup">Signup</label>
-                <div class="slider-tab"></div>
-            </div>
-            <div class="form-inner">
-                <!-- Login Form -->
-                <form class="login active" id="loginForm">
-                    <div class="field">
-                        <input type="text" placeholder="Email Address" required name="email" />
-                    </div>
-                    <div class="field">
-                        <input type="password" placeholder="Password" required name="password" />
-                    </div>
-                    <div class="field btn">
-                        <div class="btn-layer"></div>
-                        <input type="submit" value="Login" />
-                    </div>
-                    
-                </form>
-                <!-- Signup Form -->
-                <form class="signup" id="signupForm">
-                    <div class="field">
-                        <input type="text" placeholder="Username" required name="username" />
-                    </div>
-                    <div class="field">
-                        <input type="text" placeholder="Email Address" required name="email" />
-                    </div>
-                    <div class="field">
-                        <input type="password" placeholder="Password" required name="password" />
-                    </div>
-                    <div class="field">
-                        <input type="password" placeholder="Confirm password" required name="confirmPassword" />
-                    </div>
-                    <div class="field btn">
-                        <div class="btn-layer"></div>
-                        <input type="submit" value="Signup" />
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div id="logo-container" style="display: flex; justify-content: center; align-items: center; height: auto;">
+        <img src="fold.jpg" alt="FOLD Logo" style="max-width: 200px; height: auto;">
     </div>
-    <script>
-         var currentRole = 'Customer'; // Track the current role state
 
-        function toggleRole() {
-            var btn = document.querySelector('.toggle-btn');
-            currentRole = (btn.textContent.trim() === 'Customer') ? 'Staff' : 'Customer';
-            btn.textContent = currentRole;
-            updateFormActions();
-        }
-
-        function toggleForm(formType) {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            loginForm.style.display = (formType === 'login') ? 'block' : 'none';
-            signupForm.style.display = (formType === 'login') ? 'none' : 'block';
-            updateFormActions();
-        }
-
-        function updateFormActions() {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            if (currentRole === 'Customer') {
-                loginForm.action = '/customer_login';
-                signupForm.action = '/customer_signup';
-            } else {
-                loginForm.action = '/staff_Login';
-                signupForm.action = '/staff_signup';
-            }
-        }
-    </script>
+    <div class="container">
+        <h2>Login</h2>
+        <form action="login.php" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <br>
+            <input type="password" name="password" placeholder="Password" required>
+            <br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
 </body>
 </html>
