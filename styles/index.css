@@ -1,0 +1,65 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: white;
+}
+
+#logo-container {
+    text-align: center;
+    padding: 20px;
+   
+}
+
+#autocomplete-results {
+    display: none; /* Initially hide the dropdown */
+    position: absolute;
+    top: 100%; /* Position below the input field */
+    left: 0;
+    width: 100%; /* Full width */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 1000; /* Ensure dropdown appears above other content */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+
+#search-container {
+    text-align: center;
+    margin: 20px auto; /* Added margin to center vertically and horizontally */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+}
+
+#search-container input[type="text"] {
+    padding: 10px 15px; /* Provides padding inside the search bar */
+    width: 300px; /* Fixed width for the search bar */
+    border: 2px solid #b3d4fc; /* Light blue border */
+    border-radius: 20px; /* Rounded corners for the search bar */
+    outline: none; /* Removes the outline to make it prettier */
+    font-size: 16px; /* Makes text larger and easier to read */
+    color: #333; /* Darker text for better readability */
+    background-color: #eef7ff; /* Very light blue background */
+}
+
+#map-container {
+    height: 80%; /* Adjust based on your preference */
+    width: 100%;
+}
+
+.loader {
+    border: 8px solid #f3f3f3; /* Lightens the loader border */
+    border-top: 8px solid #3498db; /* Loader color */
+    border-radius: 50%;
+    width: 80px; /* Adjust for smaller loader */
+    height: 80px; /* Adjust for smaller loader */
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
