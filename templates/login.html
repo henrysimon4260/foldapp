@@ -138,11 +138,8 @@
         
         function handleFormSubmit(form) {
             const isStaff = form.querySelector('input[name="is_staff"]').checked;
-            // Determine where to redirect after form submission
             const redirectUrl = isStaff ? 'staff_profile.html' : 'index.html';
-            form.action = isStaff ? '/staffRegisterAuth' : '/customerRegisterAuth';  // Ensure action is set correctly
-        
-            // Submit the form normally, and handle redirection afterward
+            form.action = isStaff ? '/staffRegisterAuth' : '/customerRegisterAuth';          
             form.submit();
             window.location.href = redirectUrl;
             return false;  // Prevent the default form submission
