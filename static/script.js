@@ -64,23 +64,9 @@ function initMap() {
     });
 }
 
-function confirmLaundryOptions() {
-    // Retrieve selected options
-    var laundryWeight = document.getElementById('laundry-weight').value;
-    var detergentType = document.getElementById('detergent-type').value;
-    var expressService = document.getElementById('express-service').checked;
 
-    // Handle confirmation logic here
-    console.log("Laundry Weight:", laundryWeight);
-    console.log("Detergent Type:", detergentType);
-    console.log("Express Service:", expressService);
-
-    // Hide laundry options popup
-    document.getElementById('laundry-options-popup').style.display = 'none';
-    window.location.href = "payment.html";
-}
-
-function cancelLaundryOptions() {
+function cancelLaundryOptions(event) {
+    event.preventDefault();
     document.getElementById('laundry-options-popup').style.display = 'none';
 }
 

@@ -31,7 +31,6 @@ def form_example():
         'data1': data1,
         'data2': data2
     }
-
     # Any actual logic that you want to implement
 
     return render_template('form_example.html', data=data)
@@ -179,7 +178,7 @@ def customerProfile():
     # conn.close()
 
     # # Check if personal_info is not None
-#    return render_template('customer_profile.html', personal_info=personal_info, orders=orders)    
+    #return render_template('customer_profile.html', personal_info=personal_info, orders=orders)    
     pass
 
 @app.route('/edit_personal_info')
@@ -235,10 +234,42 @@ def confirmed_orders():
     # Fetch all the confirmed orders
     pass
 
+@app.route('/delivery_trucks')
+def delivery_trucks():
+    # conn = sqlite3.connect('your_database.db')  # Connect to your database
+    # cursor = conn.cursor()
 
+    # # Query to get delivery truck data along with associated orders
+    # cursor.execute('''SELECT dt.identification_number, dt.order_capacity, dt.manufacturing_company, dt.model_number, dt.manufacturing_date, dt.age, COUNT(o.order_id) AS numOrders
+    #                   FROM delivery_truck dt
+    #                   LEFT JOIN orders o ON dt.identification_number = o.truck_id
+    #                   GROUP BY dt.identification_number''')
+    # trucks = cursor.fetchall()
+
+    # # Collect order details for each truck
+    # truck_info = []
+    # for truck in trucks:
+    #     cursor.execute('''SELECT order_id, delivery_date, status FROM orders WHERE truck_id = ?''', (truck[0],))
+    #     orders = cursor.fetchall()
+    #     truck_info.append(truck + (orders,))
+
+    # conn.close()
+    # return render_template('staff_profile.html', trucks=truck_info)
+    pass 
+
+def get_num_orders(truck_id):
+    # Connect to database and count orders for given truck_id
+    # This is a simplified version
+    # conn = sqlite3.connect('your_database.db')
+    # cursor = conn.cursor()
+    # cursor.execute('''SELECT COUNT(*) FROM orders WHERE truck_id = ?''', (truck_id,))
+    # result = cursor.fetchone()[0]
+    # conn.close()
+    # return result
+    pass
 @app.route('/')
 def index():
-    return render_template('customer_profile.html')
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
