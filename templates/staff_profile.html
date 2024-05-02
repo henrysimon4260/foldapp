@@ -36,7 +36,6 @@
         } 
     </style>
 <div class="top-left-buttons">
-    <button class="button" id="firstname-button" onclick="location.href='/check_user_role';">Orders</button>
     <button class="button" id="logout-button" onclick="location.href='/logout';">Logout</button>
 </div>
 </head>
@@ -83,6 +82,36 @@
             <td>${{ metrics.total_revenue }}</td>
             <td>{{ metrics.machine_utilization }}%</td>
         </tr>
+    </table>
+    <h1>Delivery Trucks</h1>
+    <table>
+        <tr>
+            <th>Identification Number</th>
+            <th>Order Capacity</th>
+            <th>Manufacturing Company</th>
+            <th>Model Number</th>
+            <th>Manufacturing Date</th>
+            <th>Age</th>
+            <th>Number of Orders</th>
+        </tr>
+        {% for truck in trucks %}
+        <tr>
+            <td>{{ truck[0] }}</td>
+            <td>{{ truck[1] }}</td>
+            <td>{{ truck[2] }}</td>
+            <td>{{ truck[3] }}</td>
+            <td>{{ truck[4] }}</td>
+            <td>{{ truck[5] }}</td>
+            <td>{{ truck[6] }}</td>
+            <td>
+                <ul>
+                {% for order in truck[7] %}
+                    <li>Order ID: {{ order[0] }}, Delivery Date: {{ order[1] }}, Status: {{ order[2] }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor %}
     </table>
     <h1>Confirmed Orders</h1>
     {% if orders %}

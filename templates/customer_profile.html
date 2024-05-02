@@ -6,10 +6,9 @@
     <title>Customer Profile</title>
     <link rel="stylesheet" href="../static/styles.css">
     <style>
-
-         button {
-            background-color: #007bff; 
-            color: #fff; 
+        button {
+            background-color: #007bff;
+            color: #fff;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -18,7 +17,7 @@
             margin-top: 10px;
         }
         button:hover {
-            background-color: #0056b3; 
+            background-color: #0056b3;
         }
         .top-left-buttons {
             position: absolute;
@@ -34,24 +33,23 @@
         }
         .button:hover {
             background: linear-gradient(to right, #0073e6, #0059b3, #004080, #003366);
-        } 
+        }
     </style>
-<div class="top-left-buttons">
-    <button class="button" id="firstname-button" onclick="location.href='/check_user_role';">Orders</button>
-    <button class="button" id="logout-button" onclick="location.href='/logout';">Logout</button>
-</div>
 </head>
 <body>
-    </div>        
+    <div class="top-left-buttons">
+        <button class="button" id="firstname-button" onclick="location.href='/check_user_role';">Orders</button>
+        <button class="button" id="logout-button" onclick="location.href='/logout';">Logout</button>
+    </div>
     <div id="logo-container" style="display: flex; justify-content: center; align-items: center; height: auto;">
         <img src="../static/fold.jpg" alt="FOLD Logo" style="max-width: 200px; height: auto;">
-    </div>       
-
+    </div>
+    
     <h1>Personal Information</h1>
     <table>
         <tr>
             <th>Email</th>
-            <th>Password</th>  <!-- Generally, passwords should not be displayed on web pages -->
+            <th>Password</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Address</th>
@@ -60,7 +58,7 @@
         </tr>
         <tr>
             <td>{{ personal_info['email_address'] }}</td>
-            <td>{{ personal_info['password'] }}</td> <!-- Consider security implications -->
+            <td>{{ personal_info['password'] }}</td>
             <td>{{ personal_info['first_name'] }}</td>
             <td>{{ personal_info['last_name'] }}</td>
             <td>{{ personal_info['address'] }}</td>
@@ -69,9 +67,7 @@
         </tr>
     </table>
     <button onclick="window.location.href='/edit_personal_info';">Edit Personal Info</button>
-    <td>
-    </body>
-
+    
     <h1>Orders</h1>
     {% if orders %}
     <table>
@@ -101,15 +97,22 @@
             <td>{{ order.purchase_date_time }}</td>
             <td>{{ order.purchase_status }}</td>
             <td>
-                <button onclick="window.location.href='/cancel_order/{{ order.order_ID }}';">Cancel</button>
-                <button onclick="window.location.href='/edit_order/{{ order.order_ID }}';">Edit</button>
-                <button onclick="window.location.href='/reorder/{{ order.order_ID }}';">Reorder</button>
+                <button onclick="confirmAction('/cancel_order/{{ order.order_ID }}', 'Cancel this order?')">Cancel</button>
+                <button onclick="confirmAction('/edit_order/{{ order.order_ID }}', 'Edit this order?')">Edit</button>
+                <button onclick="confirmAction('/reorder/{{ order.order_ID }}', 'Reorder based on this order?')">Reorder</button>
             </td>
         </tr>
         {% endfor %}
     </table>
-    {%else%}
+    {% else %}
     <p>No orders found.</p>
-    {%endif%}
+    {% endif %}
+    <script>
+        function confirmAction(link, message) {
+            if (confirm(message)) {
+                window.location.href = link;
+            }
+        }
+    </script>
 </body>
 </html>

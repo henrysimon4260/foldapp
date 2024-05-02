@@ -119,10 +119,8 @@
                     <div class="field">
                         <label style="display: flex; justify-content: space-between; align-items: center; font-size: 20px; width: 100%;">
                             Are you a staff member?
-                            <input type="checkbox" name="is_staff" onchange="updateAction(this.checked);" style="width: 24px; height: 15px;">
+                            <input type="checkbox" name="is_staff" onchange="updateAction(this.checked);" style="width: 24px; height: 24px;">
                         </label>
-                        
-                        
                     </div>
                     <div class="field btn">
                         <div class="btn-layer"></div>
@@ -130,27 +128,34 @@
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
-</body>
-<script>
-function updateAction(isStaff) {
-    const signupForm = document.getElementById('signupForm');
-    signupForm.action = isStaff ? '/staffRegisterAuth' : '/customerRegisterAuth';
-    window.location.href = "index.html";
-}
+        </body>
+        <script>
+        function updateAction(isStaff) {
+            const signupForm = document.getElementById('signupForm');
+            // Update form action based on whether the user is staff or not
+            signupForm.action = isStaff ? '/staffRegisterAuth' : '/customerRegisterAuth';
+        }
+        
+        function handleFormSubmit(form) {
+            const isStaff = form.querySelector('input[name="is_staff"]').checked;
+            // Determine where to redirect after form submission
+            const redirectUrl = isStaff ? 'staff_profile.html' : 'index.html';
+            form.action = isStaff ? '/staffRegisterAuth' : '/customerRegisterAuth';  // Ensure action is set correctly
+        
+            // Submit the form normally, and handle redirection afterward
+            form.submit();
+            window.location.href = redirectUrl;
+            return false;  // Prevent the default form submission
+        }    
+        function toggleForm(formType) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            loginForm.style.display = (formType === 'login') ? 'block' : 'none';
+            signupForm.style.display = (formType === 'login') ? 'none' : 'block';
+            updateFormActions();
+        }
+        
 
-function toggleForm(formType) {
-    const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
-    loginForm.style.display = (formType === 'login') ? 'block' : 'none';
-    signupForm.style.display = (formType === 'login') ? 'none' : 'block';
-    updateFormActions();
-}
+        </script>        
+        </html>
 
-
-
-
-</script>
-
-</html>
