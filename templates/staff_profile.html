@@ -6,7 +6,6 @@
     <title>Customer Profile</title>
     <link rel="stylesheet" href="../static/styles.css">
     <style>
-
          button {
             background-color: #007bff; 
             color: #fff; 
@@ -86,6 +85,7 @@
         </tr>
     </table>
     <h1>Confirmed Orders</h1>
+    {% if orders %}
     <table>
         <tr>
             <th>Order ID</th>
@@ -118,5 +118,9 @@
         </tr>
         {% endfor %}
     </table>
+    {% else %}
+    <p>No confirmed orders.</p>
+    {% endif %}
+    
 </body>
 </html>
