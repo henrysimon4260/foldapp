@@ -155,9 +155,90 @@ def confirmService():
     # query the database and input to confirm the service
     pass
 
+
+@app.route('/customerProfile')
+def customerProfile():
+    #  please complete this function
+    # query the database to get the customer profile which will be used in customer_profile.html
+    # user_id = session.get('user_id')
+    # if not user_id:
+    #     # Redirect to login page if the user is not logged in
+    #     return redirect(url_for('login'))
+
+    # # Connecting to the database
+    # conn = get_db_connection()
+    # cursor = conn.cursor(dictionary=True)
+
+    # # Fetching user data
+    # cursor.execute("SELECT email_address, password, first_name, last_name, address, phone_number, date_of_birth FROM users WHERE id = %s", (user_id,))
+    # personal_info = cursor.fetchone()
+     # Fetch order details
+    # cursor.execute("SELECT * FROM `order` WHERE email_address = %s ORDER BY purchase_date_time DESC", (user_email,))
+    # orders = cursor.fetchall()
+    # cursor.close()
+    # conn.close()
+
+    # # Check if personal_info is not None
+#    return render_template('customer_profile.html', personal_info=personal_info, orders=orders)    
+    pass
+
+@app.route('/edit_personal_info')
+def edit_personal_info():
+    # Assuming user_id is stored in session
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('login'))
+    # Fetch and pass user information to the template
+    # Redirect or render an editing form
+    return render_template('edit_personal_info.html')
+
+@app.route('/cancel_order/<order_id>')
+def cancel_order(order_id):
+    # Logic to cancel the order
+    # Redirect back to the profile or order page
+    return redirect(url_for('customer_profile'))
+
+@app.route('/edit_order/<order_id>')
+def edit_order(order_id):
+    # Fetch order details for editing
+    # Redirect or render an editing form
+    return render_template('edit_order.html', order_id=order_id)
+
+@app.route('/reorder/<order_id>')
+def reorder(order_id):
+    # Logic to duplicate and reorder based on existing order details
+    # Redirect back to the profile or order page
+    return redirect(url_for('customer_profile'))
+
+@app.route('/average_order_weight')
+def average_order_weight():
+    # Fetch the average order weight
+    # Redirect or render the average order weight page
+    # return render_template('average_order_weight.html')
+    pass 
+
+@app.route('/total_revenue')
+def total_revenue():
+    # Fetch the total revenue
+    # calculate the total revenue of all the orders 
+    pass
+
+@app.route('/machine_utilization')
+def machine_utilization():
+    # Fetch the machine utilization
+    # calculate the machine utilization
+    pass
+
+@app.route('/confirmed_orders')
+def confirmed_orders():
+    # Fetch the confirmed orders
+    # Fetch all the confirmed orders
+    pass
+
+
 @app.route('/')
 def index():
-    return render_template('login.html')
+    return render_template('customer_profile.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
