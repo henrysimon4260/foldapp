@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOLD - Laundry Service App</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <style>
+         button {
+            background-color: #007bff; 
+            color: #fff; 
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3; 
+        }
+        .top-left-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 15px;
+            margin-left: 10px;
+            background-color: linear-gradient(to right, #003366, #004080, #0059b3, #0073e6);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background: linear-gradient(to right, #0073e6, #0059b3, #004080, #003366);
+        } 
+    </style>
+<div class="top-left-buttons">
+    <button class="button" id="firstname-button" onclick="location.href='/customerProfile';">Orders</button>
+    <button class="button" id="logout-button" onclick="location.href='/logout';">Logout</button>
+</div>
+</head>
+<body>
+    <div id="loading-screen" style="display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 99;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <!-- Logo -->
+            <img src="../static/fold.jpg" alt="Loading..." style="max-width: 500px; height: auto; margin-bottom: 20px;">
+            <!-- Spinner -->
+            <div class="loader" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; border-radius: 50%; width: 75px; height: 75px; animation: spin 2s linear infinite;"></div>
+        </div>
+    </div>
+        
+    <div id="logo-container" style="display: flex; justify-content: center; align-items: center; height: auto;">
+        <img src="../static/fold.jpg" alt="FOLD Logo" style="max-width: 200px; height: auto;">
+    </div>       
+    <div id="search-container">
+        <input type="text" id="service-search" placeholder="Schedule a service">
+        <div id="autocomplete-results"></div>
+    </div>
+    <div id="map-container"></div>
+    <form action="/confirm_order" method="post">
+        <div id="laundry-options-popup" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #f2f5f8; padding: 20px; border-top: 1px solid #ccc;">
+            <h2 style="font-family: Arial, sans-serif; font-weight: bold; color: #333;">Laundry Options</h2>
+            <label for="weight" style="font-family: Arial, sans-serif; font-weight: bold; color: #333;">Laundry Weight (lbs):</label>
+            <input type="number" name="weight" id="weight" min="1" max="100" style="margin-bottom: 10px; padding: 8px; width: 100%; border: 1px solid #ccc; border-radius: 5px;">
+            <label for="instructions" style="font-family: Arial, sans-serif; font-weight: bold; color: #333;">Detergent Type:</label>
+            <select name="instructions" id="instructions" style="margin-bottom: 10px; padding: 8px; width: 100%; border: 1px solid #ccc; border-radius: 5px;">
+                <option value="regular">Regular</option>
+                <option value="eco-friendly">Eco-Friendly</option>
+                <option value="fragrance-free">Fragrance-Free</option>
+            </select>
+            <div style="display: flex; justify-content: space-between;">
+                <button type="submit" style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Confirm</button>
+                <button onclick="cancelLaundryOptions(event)" type="button" style="padding: 10px 20px; background: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;">Cancel</button>
+            </div>
+        </div>
+    </form>
+    
+     
+
+    <script src="../static/script.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC5tqvAkOCrHsdNo2YAjBpS3EtQ6fdMlU&callback=initMap&libraries=places"></script>
+
+
+</body>
+</html>

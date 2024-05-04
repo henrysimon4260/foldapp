@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Information</title>
+    <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2; /* Light grey background */
+            color: #333; /* Dark grey text */
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff; /* White background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+        h1 {
+            font-weight: bold;
+            text-align: center;
+            color: #007bff; /* Blue header */
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc; /* Light grey border */
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff; /* Blue button */
+            color: #fff; /* White text */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .top-left-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 15px;
+            margin-left: 10px;
+            background-color: linear-gradient(to right, #003366, #004080, #0059b3, #0073e6);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <!-- Logo -->
+        <img src="../static/fold.jpg" alt="Loading..." style="max-width: 200px; height: auto; margin-bottom: 20px;">
+        
+    <div class="top-left-buttons">
+        <button class="button" id="firstname-button" onclick="location.href='/customerProfile';">Orders</button>
+        <button class="button" id="logout-button" onclick="location.href='/logout';">Logout</button>
+    </div>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Information</h1>
+        <!-- Wrap the inputs in a form that posts to the Flask route -->
+        <form action="/confirmService" method="post" id="paymentForm">
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" name="cardNumber" required>
+    
+            <label for="cardName">Cardholder Name:</label>
+            <input type="text" id="cardName" name="cardName" required>
+    
+            <label for="cvc">CVC:</label>
+            <input type="text" id="cvc" name="cvc" required>
+    
+            <label for="expirationMonth">Expiration Month:</label>
+            <input type="number" id="expirationMonth" name="expirationMonth" min="1" max="12" required>
+    
+            <label for="expirationYear">Expiration Year:</label>
+            <input type="number" id="expirationYear" name="expirationYear" min="2022" max="2050" required>
+    
+            <!-- Price calculation -->
+            <p>Total Price: $<td>{{ totalprice }}</td></p>
+    
+            <button type="submit";">Confirm Service</button>
+        </form>
+    </div>
+    <script>
+        

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../static/styles.css">
+    <style>
+        .wrapper {
+            background-color: white;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid lightgrey;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .slide {
+            cursor: pointer;
+            display: inline-block;
+            padding: 1px 1px;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        .form-inner form {
+            display: none;
+        }
+
+        .form-inner form.active {
+            display: block;
+        }
+
+        .field {
+            margin-bottom: 10px;
+        }
+
+        .field input[type="text"],
+        .field input[type="password"],
+        .field input[type="email"],
+        .field input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid blue;
+        }
+
+        .btn-layer {
+            background: blue;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="title-text">
+            <img src="../static/fold.jpg" alt="fold_logo" style="width: 260px; height: auto;" />
+        </div>
+        <div class="form-container">
+            <div class="slide-controls">
+                <input type="radio" name="slide" id="login" checked onchange="toggleForm('login')" />
+                <input type="radio" name="slide" id="signup" onchange="toggleForm('signup')" />
+                <label for="login" class="slide login">Login</label>
+                <label for="signup" class="slide signup">Signup</label>
+                <div class="slider-tab"></div>
+            </div>
+            <div class="form-inner">
+                <!-- Login Form -->
+                <form action="/staffLoginAuth" method="POST" class="login active" id="loginForm">
+                    <div class="field">
+                        <input type="text" placeholder="Email Address" required name="email_address" />
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" required name="password" />
+                    </div>
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <input type="submit" value="Login" />
+                    </div>
+
+                </form>
+                <!-- Signup Form -->
+                <form action="/staffRegisterAuth" method="POST" class="signup" id="signupForm">
+                    <div class="field">
+                        <input type="text" placeholder="Email Address" required name="email_address">
+                    </div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" required name="password">
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="First Name" name="first_name">
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="Last Name" name="last_name">
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="Address" name="address">
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="Phone Number" name="phone_number">
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="Date of Birth (mm/dd/yy)" name="date_of_birth">
+                    </div>
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <input type="submit" value="Signup" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    function updateAction(isStaff) {
+        const signupForm = document.getElementById('signupForm');
+        signupForm.action = isStaff ? '/staffRegisterAuth' : '/customerRegisterAuth';
+        window.location.href = "index.html";
+    }
+
+    function toggleForm(formType) {
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        loginForm.style.display = (formType === 'login') ? 'block' : 'none';
+        signupForm.style.display = (formType === 'login') ? 'none' : 'block';
+        updateFormActions();
+    }
+
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <style>
+
+         button {
+            background-color: #007bff; 
+            color: #fff; 
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3; 
+        }
+        .top-left-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 15px;
+            margin-left: 10px;
+            background-color: linear-gradient(to right, #003366, #004080, #0059b3, #0073e6);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background: linear-gradient(to right, #0073e6, #0059b3, #004080, #003366);
+        } 
+    </style>
+<div class="top-left-buttons">
+    <button class="button" id="firstname-button" onclick="location.href='/check_user_role';">Orders</button>
+    <button class="button" id="logout-button" onclick="location.href='/logout';">Logout</button>
+</div>
+</head>
+<body>
+    </div>
+        
+    <div id="logo-container" style="display: flex; justify-content: center; align-items: center; height: auto;">
+        <img src="../static/fold.jpg" alt="FOLD Logo" style="max-width: 200px; height: auto;">
+    </div>       
+
+    <h1>Staff Information</h1>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email Address</th>
+            <th>Phone Number</th>
+            <th>Date of Birth</th>
+        </tr>
+        <tr>
+            <td>{{ staff_info['email_address'] }}</td>
+            <td>{{ staff_info['first_name'] }}</td>
+            <td>{{ staff_info['last_name'] }}</td>
+            <td>{{ staff_info['email_address'] }}</td>
+            <td>{{ staff_info['phone_number'] }}</td>
+            <td>{{ staff_info['date_of_birth'] }}</td>
+        </tr>
+    </table>
+    <button onclick="window.location.href='/edit_personal_info';">Edit Staff Info</button>
+    <td>
+    <h1>Confirmed Orders</h1>
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Email Address</th>
+            <th>Delivery Date</th>
+            <th>Price</th>
+            <th>Pickup Date</th>
+            <th>Address</th>
+            <th>Instructions</th>
+            <th>Weight</th>
+            <th>Purchase Date</th>
+            <th>Status</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order['order_ID'] }}</td>
+            <td>{{ order['email_address'] }}</td>
+            <td>{{ order['delivery_date_time'] }}</td>
+            <td>${{ order['price'] }}</td>
+            <td>{{ order['pickup_date_time'] }}</td>
+            <td>{{ order['address'] }}</td>
+            <td>{{ order['instructions'] }}</td>
+            <td>{{ order['weight'] }}</td>
+            <td>{{ order['purchase_date_time'] }}</td>
+            <td>{{ order['order_status'] }}</td>
+            <td>
+                <button onclick="window.location.href='/cancel_order/{{ order.order_ID }}';">Cancel</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
