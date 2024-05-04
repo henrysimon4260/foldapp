@@ -106,22 +106,36 @@
         <th>Manufacturing Date</th>
         <th>Age</th>
         <th>Number of Orders</th>
+        <th>Orders</th>
     </tr>
     {% for truck in trucks %}
     <tr>
-        <td>{{ truck[0] }}</td>
-        <td>{{ truck[1] }}</td>
-        <td>{{ truck[2] }}</td>
-        <td>{{ truck[3] }}</td>
-        <td>{{ truck[4] }}</td>
-        <td>{{ truck[5] }}</td>
-        <td>{{ truck[6] }}</td>
+        <td>{{ truck.identification_number }}</td>
+        <td>{{ truck.order_capacity }}</td>
+        <td>{{ truck.manufacturing_company }}</td>
+        <td>{{ truck.model_number }}</td>
+        <td>{{ truck.manufacturing_date }}</td>
+        <td>{{ truck.age }}</td>
+        <td>{{ truck.number_of_orders }}</td>
         <td>
-            <ul>
-            {% for order in truck[7] %}
-                <li>Order ID: {{ order[0] }}, Delivery Date: {{ order[1] }}, Status: {{ order[2] }}</li>
-            {% endfor %}
-            </ul>
+            {% if truck.orders %}
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <th style="border: 1px solid #ccc; padding: 5px;">Order ID</th>
+                    <th style="border: 1px solid #ccc; padding: 5px;">Delivery Date</th>
+                    <th style="border: 1px solid #ccc; padding: 5px;">Status</th>
+                </tr>
+                {% for order in truck.orders %}
+                <tr>
+                    <td style="border: 1px solid #ccc; padding: 5px;">{{ order.order_ID }}</td>
+                    <td style="border: 1px solid #ccc; padding: 5px;">{{ order.delivery_date }}</td>
+                    <td style="border: 1px solid #ccc; padding: 5px;">{{ order.status }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p>No orders assigned to this truck.</p>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}
