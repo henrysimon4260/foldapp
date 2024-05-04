@@ -4,48 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Profile</title>
-    <link rel="stylesheet" href="../static/styles.css">
     <style>
-        button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
         .top-left-buttons {
-            position: absolute;
+            position: fixed;
             top: 10px;
             left: 10px;
-            padding: 5px 15px;
-            margin-left: 10px;
-            background-color: linear-gradient(to right, #003366, #004080, #0059b3, #0073e6);
-            color: white;
-            border: none;
-            border-radius: 5px;
+        }
+        .button {
+            background-color: #007bff; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
             cursor: pointer;
+            margin-right: 10px;
+        }
+        .button-container {
+            text-align: center; /* Center align the buttons */
+            margin-bottom: 20px; /* Space after buttons */
         }
         .button:hover {
-            background: linear-gradient(to right, #0073e6, #0059b3, #004080, #003366);
+            background-color: #0056b3;
+        }
+        #logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px; /* Adjusted to not overlap with the top-left buttons */
+        }
+        table {
+            width: 90%;
+            margin: 20px auto; /* Center table and add space around it */
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
     <div class="top-left-buttons">
-        <button class="button" id="firstname-button" onclick="location.href='/check_user_role';">Orders</button>
         <button class="button" id="logout-button" onclick="location.href='/logout';">Logout</button>
     </div>
-    <div id="logo-container" style="display: flex; justify-content: center; align-items: center; height: auto;">
+    <div id="logo-container">
         <img src="../static/fold.jpg" alt="FOLD Logo" style="max-width: 200px; height: auto;">
     </div>
     
-    <h1>Personal Information</h1>
+    <h1 style="text-align: center;">Personal Information</h1>
     <table>
         <tr>
             <th>Email</th>
@@ -66,9 +81,11 @@
             <td>{{ personal_info['date_of_birth'] }}</td>
         </tr>
     </table>
-    <button onclick="window.location.href='/edit_personal_info';">Edit Personal Info</button>
-    
-    <h1>Orders</h1>
+    <div style="text-align: center;">
+        <button onclick="window.location.href='/edit_personal_info';" class="button">Edit </button>
+    </div>
+
+    <h1 style="text-align: center;">Orders</h1>
     {% if orders %}
     <table>
         <tr>
@@ -82,7 +99,6 @@
             <th>Weight</th>
             <th>Purchase Date</th>
             <th>Purchase Status</th>
-            <th>Actions</th>
         </tr>
         {% for order in orders %}
         <tr>
@@ -96,17 +112,18 @@
             <td>{{ order.weight }} kg</td>
             <td>{{ order.purchase_date_time }}</td>
             <td>{{ order.purchase_status }}</td>
-            <td>
-                <button onclick="confirmAction('/cancel_order/{{ order.order_ID }}', 'Cancel this order?')">Cancel</button>
-                <button onclick="confirmAction('/edit_order/{{ order.order_ID }}', 'Edit this order?')">Edit</button>
-                <button onclick="confirmAction('/reorder/{{ order.order_ID }}', 'Reorder based on this order?')">Reorder</button>
-            </td>
         </tr>
         {% endfor %}
     </table>
+    <div class="button-container">
+        <button onclick="confirmAction('/cancel_order/{{ order.order_ID }}', 'Cancel this order?')" class="button">Cancel</button>
+        <button onclick="confirmAction('/edit_order/{{ order.order_ID }}', 'Edit this order?')" class="button">Edit</button>
+        <button onclick="confirmAction('/reorder/{{ order.order_ID }}', 'Reorder based on this order?')" class="button">Reorder</button>
+    </div>
     {% else %}
     <p>No orders found.</p>
     {% endif %}
+</div>
     <script>
         function confirmAction(link, message) {
             if (confirm(message)) {

@@ -3,153 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Profile</title>
-    <link rel="stylesheet" href="../static/styles.css">
+    <title>Staff Profile</title>
     <style>
-         button {
-            background-color: #007bff; 
-            color: #fff; 
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0056b3; 
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
         .top-left-buttons {
-            position: absolute;
+            position: fixed;
             top: 10px;
             left: 10px;
-            padding: 5px 15px;
-            margin-left: 10px;
-            background-color: linear-gradient(to right, #003366, #004080, #0059b3, #0073e6);
-            color: white;
-            border: none;
-            border-radius: 5px;
+        }
+        .button {
+            background-color: #007bff; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
             cursor: pointer;
+            margin-right: 10px;
+        }
+        .button-container {
+            text-align: center; /* Center align the buttons */
+            margin-bottom: 20px; /* Space after buttons */
         }
         .button:hover {
-            background: linear-gradient(to right, #0073e6, #0059b3, #004080, #003366);
-        } 
+            background-color: #0056b3;
+        }
+        #logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px; /* Adjusted to not overlap with the top-left buttons */
+        }
+        table {
+            width: 90%;
+            margin: 20px auto; /* Center table and add space around it */
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
-<div class="top-left-buttons">
-    <button class="button" id="logout-button" onclick="location.href='/logout';">Logout</button>
-</div>
 </head>
 <body>
+    <div class="top-left-buttons">
+        <button class="button" id="logout-button" onclick="location.href='/logout';">Logout</button>
     </div>
-        
-    <div id="logo-container" style="display: flex; justify-content: center; align-items: center; height: auto;">
+    <div id="logo-container">
         <img src="../static/fold.jpg" alt="FOLD Logo" style="max-width: 200px; height: auto;">
-    </div>       
+    </div>
+    <h1 style="text-align: center;">Staff Information</h1>
+<table>
+    <tr>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email Address</th>
+        <th>Phone Number</th>
+        <th>Date of Birth</th>
+    </tr>
+    <tr>
+        <td>{{ staff_info['username'] }}</td>
+        <td>{{ staff_info['first_name'] }}</td>
+        <td>{{ staff_info['last_name'] }}</td>
+        <td>{{ staff_info['email_address'] }}</td>
+        <td>{{ staff_info['phone_number'] }}</td>
+        <td>{{ staff_info['date_of_birth'] }}</td>
+    </tr>
+</table>
+<div style="text-align: center;">
+    <button onclick="window.location.href='/edit_personal_info';" class="button">Edit Staff Info</button>
+</div>
 
-    <h1>Staff Information</h1>
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email Address</th>
-            <th>Phone Number</th>
-            <th>Date of Birth</th>
-        </tr>
-        <tr>
-            <td>{{ staff_info['username'] }}</td>
-            <td>{{ staff_info['first_name'] }}</td>
-            <td>{{ staff_info['last_name'] }}</td>
-            <td>{{ staff_info['email_address'] }}</td>
-            <td>{{ staff_info['phone_number'] }}</td>
-            <td>{{ staff_info['date_of_birth'] }}</td>
-        </tr>
-    </table>
-    <button onclick="window.location.href='/edit_personal_info';">Edit Staff Info</button>
-    <td>
+<h1 style="text-align: center;">Operational Metrics</h1>
+<table>
+    <tr>
+        <th>Average Order Weight</th>
+        <th>Total Revenue</th>
+        <th>Machine Utilization</th>
+    </tr>
+    <tr>
+        <td>{{ metrics.average_order_weight }} kg</td>
+        <td>${{ metrics.total_revenue }}</td>
+        <td>{{ metrics.machine_utilization }}%</td>
+    </tr>
+</table>
 
+<h1 style="text-align: center;">Delivery Trucks</h1>
+<table>
+    <tr>
+        <th>Identification Number</th>
+        <th>Order Capacity</th>
+        <th>Manufacturing Company</th>
+        <th>Model Number</th>
+        <th>Manufacturing Date</th>
+        <th>Age</th>
+        <th>Number of Orders</th>
+    </tr>
+    {% for truck in trucks %}
+    <tr>
+        <td>{{ truck[0] }}</td>
+        <td>{{ truck[1] }}</td>
+        <td>{{ truck[2] }}</td>
+        <td>{{ truck[3] }}</td>
+        <td>{{ truck[4] }}</td>
+        <td>{{ truck[5] }}</td>
+        <td>{{ truck[6] }}</td>
+        <td>
+            <ul>
+            {% for order in truck[7] %}
+                <li>Order ID: {{ order[0] }}, Delivery Date: {{ order[1] }}, Status: {{ order[2] }}</li>
+            {% endfor %}
+            </ul>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 
-    <!-- Operational Metrics Table -->
-    <h1>Operational Metrics</h1>
-    <table>
-        <tr>
-            <th>Average Order Weight</th>
-            <th>Total Revenue</th>
-            <th>Machine Utilization</th>
-        </tr>
-        <tr>
-            <td>{{ metrics.average_order_weight }} kg</td>
-            <td>${{ metrics.total_revenue }}</td>
-            <td>{{ metrics.machine_utilization }}%</td>
-        </tr>
-    </table>
-    <h1>Delivery Trucks</h1>
-    <table>
-        <tr>
-            <th>Identification Number</th>
-            <th>Order Capacity</th>
-            <th>Manufacturing Company</th>
-            <th>Model Number</th>
-            <th>Manufacturing Date</th>
-            <th>Age</th>
-            <th>Number of Orders</th>
-        </tr>
-        {% for truck in trucks %}
-        <tr>
-            <td>{{ truck[0] }}</td>
-            <td>{{ truck[1] }}</td>
-            <td>{{ truck[2] }}</td>
-            <td>{{ truck[3] }}</td>
-            <td>{{ truck[4] }}</td>
-            <td>{{ truck[5] }}</td>
-            <td>{{ truck[6] }}</td>
-            <td>
-                <ul>
-                {% for order in truck[7] %}
-                    <li>Order ID: {{ order[0] }}, Delivery Date: {{ order[1] }}, Status: {{ order[2] }}</li>
-                {% endfor %}
-                </ul>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <h1>Confirmed Orders</h1>
-    {% if orders %}
-    <table>
-        <tr>
-            <th>Order ID</th>
-            <th>Email Address</th>
-            <th>Delivery Date</th>
-            <th>Price</th>
-            <th>Pickup Date</th>
-            <th>Address</th>
-            <th>Instructions</th>
-            <th>Weight</th>
-            <th>Purchase Date</th>
-            <th>Status</th>
-        </tr>
-        {% for order in orders %}
-        <tr>
-            <td>{{ order.order_ID }}</td>
-            <td>{{ order.email_address }}</td>
-            <td>{{ order.delivery_date_time }}</td>
-            <td>${{ order.price }}</td>
-            <td>{{ order.pickup_date_time }}</td>
-            <td>{{ order.address }}</td>
-            <td>{{ order.instructions }}</td>
-            <td>{{ order.weight }}</td>
-            <td>{{ order.purchase_date_time }}</td>
-            <td>{{ order.order_status }}</td>
-            <td>
-                <button onclick="window.location.href='/cancel_order/{{ order.order_ID }}';">Cancel</button>
-                <button onclick="window.location.href='/edit_order/{{ order.order_ID }}';">Edit</button>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% else %}
-    <p>No confirmed orders.</p>
-    {% endif %}
-    
+<h1 style="text-align: center;">Confirmed Orders</h1>
+{% if orders %}
+<table>
+    <tr>
+        <th>Order ID</th>
+        <th>Email Address</th>
+        <th>Delivery Date</th>
+        <th>Price</th>
+        <th>Pickup Date</th>
+        <th>Address</th>
+        <th>Instructions</th>
+        <th>Weight</th>
+        <th>Purchase Date</th>
+        <th>Status</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.order_ID }}</td>
+        <td>{{ order.email_address }}</td>
+        <td>{{ order.delivery_date_time }}</td>
+        <td>${{ order.price }}</td>
+        <td>{{ order.pickup_date_time }}</td>
+        <td>{{ order.address }}</td>
+        <td>{{ order.instructions }}</td>
+        <td>{{ order.weight }}</td>
+        <td>{{ order.purchase_date_time }}</td>
+        <td>{{ order.order_status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<div class="button-container">
+    <button onclick="confirmAction('/cancel_order/{{ order.order_ID }}', 'Cancel this order?')" class="button">Cancel</button>
+    <button onclick="confirmAction('/edit_order/{{ order.order_ID }}', 'Edit this order?')" class="button">Edit</button>
+</div>
+{% else %}
+<p>No confirmed orders.</p>
+{% endif %}
+
+<script>
+    function confirmAction(link, message) {
+        if (confirm(message)) {
+            window.location.href = link;
+        }
+    }
+</script>
 </body>
 </html>
