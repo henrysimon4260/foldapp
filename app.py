@@ -275,6 +275,10 @@ def customerProfile():
     cursor.close()
     return render_template('staff_profile.html',  staff_info = staff_info, orders = orderData)
 
+@app.route('/logout')
+def logout():
+	return render_template('login.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
 	
